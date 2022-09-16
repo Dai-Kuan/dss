@@ -17,11 +17,11 @@ pragma solidity 0.5.12;
 
 import "./lib.sol";
 
-contract VatLike {
+contract VatLikeSpot {
     function file(bytes32, bytes32, uint) external;
 }
 
-contract PipLike {
+contract PipLikeSpot {
     function peek() external returns (bytes32, bool);
 }
 
@@ -37,13 +37,13 @@ contract Spotter is LibNote {
 
     // --- Data ---
     struct Ilk {
-        PipLike pip;
+        PipLikeSpot pip;
         uint256 mat;
     }
 
     mapping (bytes32 => Ilk) public ilks;
 
-    VatLike public vat;
+    VatLikeSpot public vat;
     uint256 public par; // ref per dai
 
     uint256 public live;
@@ -58,7 +58,7 @@ contract Spotter is LibNote {
     // --- Init ---
     constructor(address vat_) public {
         wards[msg.sender] = 1;
-        vat = VatLike(vat_);
+        vat = VatLikeSpot(vat_);
         par = ONE;
         live = 1;
     }
@@ -76,7 +76,7 @@ contract Spotter is LibNote {
     // --- Administration ---
     function file(bytes32 ilk, bytes32 what, address pip_) external note auth {
         require(live == 1, "Spotter/not-live");
-        if (what == "pip") ilks[ilk].pip = PipLike(pip_);
+        if (what == "pip") ilks[ilk].pip = PipLikeSpot(pip_);
         else revert("Spotter/file-unrecognized-param");
     }
     function file(bytes32 what, uint data) external note auth {

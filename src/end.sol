@@ -20,7 +20,7 @@ pragma solidity 0.5.12;
 
 import "./lib.sol";
 
-contract VatLike {
+contract VatLikeEnd {
     function dai(address) external view returns (uint256);
     function ilks(bytes32 ilk) external returns (
         uint256 Art,
@@ -52,7 +52,7 @@ contract CatLike {
 contract PotLike {
     function cage() external;
 }
-contract VowLike {
+contract VowLikeEnd {
     function cage() external;
 }
 contract Flippy {
@@ -69,14 +69,14 @@ contract Flippy {
     function yank(uint id) external;
 }
 
-contract PipLike {
+contract PipLikeEnd {
     function read() external view returns (bytes32);
 }
 
 contract Spotty {
     function par() external view returns (uint256);
     function ilks(bytes32) external view returns (
-        PipLike pip,
+        PipLikeEnd pip,
         uint256 mat
     );
     function cage() external;
@@ -193,9 +193,9 @@ contract End is LibNote {
     }
 
     // --- Data ---
-    VatLike  public vat;
+    VatLikeEnd  public vat;
     CatLike  public cat;
-    VowLike  public vow;
+    VowLikeEnd  public vow;
     PotLike  public pot;
     Spotty   public spot;
 
@@ -247,9 +247,9 @@ contract End is LibNote {
     // --- Administration ---
     function file(bytes32 what, address data) external note auth {
         require(live == 1, "End/not-live");
-        if (what == "vat")  vat = VatLike(data);
+        if (what == "vat")  vat = VatLikeEnd(data);
         else if (what == "cat")  cat = CatLike(data);
-        else if (what == "vow")  vow = VowLike(data);
+        else if (what == "vow")  vow = VowLikeEnd(data);
         else if (what == "pot")  pot = PotLike(data);
         else if (what == "spot") spot = Spotty(data);
         else revert("End/file-unrecognized-param");
@@ -276,7 +276,7 @@ contract End is LibNote {
         require(live == 0, "End/still-live");
         require(tag[ilk] == 0, "End/tag-ilk-already-defined");
         (Art[ilk],,,,) = vat.ilks(ilk);
-        (PipLike pip,) = spot.ilks(ilk);
+        (PipLikeEnd pip,) = spot.ilks(ilk);
         // par is a ray, pip returns a wad
         tag[ilk] = wdiv(spot.par(), uint(pip.read()));
     }

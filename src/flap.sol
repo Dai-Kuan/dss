@@ -19,10 +19,10 @@ pragma solidity 0.5.12;
 
 import "./lib.sol";
 
-contract VatLike {
+contract VatLikeFlap {
     function move(address,address,uint) external;
 }
-contract GemLike {
+contract GemLikeFlap {
     function move(address,address,uint) external;
     function burn(address,uint) external;
 }
@@ -58,8 +58,8 @@ contract Flapper is LibNote {
 
     mapping (uint => Bid) public bids;
 
-    VatLike  public   vat;
-    GemLike  public   gem;
+    VatLikeFlap  public   vat;
+    GemLikeFlap  public   gem;
 
     uint256  constant ONE = 1.00E18;
     uint256  public   beg = 1.05E18;  // 5% minimum bid increase
@@ -78,8 +78,8 @@ contract Flapper is LibNote {
     // --- Init ---
     constructor(address vat_, address gem_) public {
         wards[msg.sender] = 1;
-        vat = VatLike(vat_);
-        gem = GemLike(gem_);
+        vat = VatLikeFlap(vat_);
+        gem = GemLikeFlap(gem_);
         live = 1;
     }
 

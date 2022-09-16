@@ -2,7 +2,7 @@ pragma solidity 0.5.12;
 
 import "./lib.sol";
 
-contract VatLike {
+contract VatLikeJug {
     function ilks(bytes32) external returns (
         uint256 Art,   // wad
         uint256 rate   // ray
@@ -27,14 +27,14 @@ contract Jug is LibNote {
     }
 
     mapping (bytes32 => Ilk) public ilks;
-    VatLike                  public vat;
+    VatLikeJug                  public vat;
     address                  public vow;
     uint256                  public base;
 
     // --- Init ---
     constructor(address vat_) public {
         wards[msg.sender] = 1;
-        vat = VatLike(vat_);
+        vat = VatLikeJug(vat_);
     }
 
     // --- Math ---

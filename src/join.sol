@@ -19,7 +19,7 @@ pragma solidity 0.5.12;
 
 import "./lib.sol";
 
-contract GemLike {
+contract GemLikeJoin {
     function decimals() public view returns (uint);
     function transfer(address,uint) external returns (bool);
     function transferFrom(address,address,uint) external returns (bool);
@@ -30,7 +30,7 @@ contract DSTokenLike {
     function burn(address,uint) external;
 }
 
-contract VatLike {
+contract VatLikeJoin {
     function slip(bytes32,address,int) external;
     function move(address,address,uint) external;
 }
@@ -69,18 +69,18 @@ contract GemJoin is LibNote {
         _;
     }
 
-    VatLike public vat;
+    VatLikeJoin public vat;
     bytes32 public ilk;
-    GemLike public gem;
+    GemLikeJoin public gem;
     uint    public dec;
     uint    public live;  // Access Flag
 
     constructor(address vat_, bytes32 ilk_, address gem_) public {
         wards[msg.sender] = 1;
         live = 1;
-        vat = VatLike(vat_);
+        vat = VatLikeJoin(vat_);
         ilk = ilk_;
-        gem = GemLike(gem_);
+        gem = GemLikeJoin(gem_);
         dec = gem.decimals();
     }
     function cage() external note auth {
@@ -109,14 +109,14 @@ contract ETHJoin is LibNote {
         _;
     }
 
-    VatLike public vat;
+    VatLikeJoin public vat;
     bytes32 public ilk;
     uint    public live;  // Access Flag
 
     constructor(address vat_, bytes32 ilk_) public {
         wards[msg.sender] = 1;
         live = 1;
-        vat = VatLike(vat_);
+        vat = VatLikeJoin(vat_);
         ilk = ilk_;
     }
     function cage() external note auth {
@@ -144,14 +144,14 @@ contract DaiJoin is LibNote {
         _;
     }
 
-    VatLike public vat;
+    VatLikeJoin public vat;
     DSTokenLike public dai;
     uint    public live;  // Access Flag
 
     constructor(address vat_, address dai_) public {
         wards[msg.sender] = 1;
         live = 1;
-        vat = VatLike(vat_);
+        vat = VatLikeJoin(vat_);
         dai = DSTokenLike(dai_);
     }
     function cage() external note auth {

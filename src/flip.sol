@@ -19,7 +19,7 @@ pragma solidity 0.5.12;
 
 import "./lib.sol";
 
-contract VatLike {
+contract VatLikeFlip {
     function move(address,address,uint) external;
     function flux(bytes32,address,address,uint) external;
 }
@@ -62,7 +62,7 @@ contract Flipper is LibNote {
 
     mapping (uint => Bid) public bids;
 
-    VatLike public   vat;
+    VatLikeFlip public   vat;
     bytes32 public   ilk;
 
     uint256 constant ONE = 1.00E18;
@@ -83,7 +83,7 @@ contract Flipper is LibNote {
 
     // --- Init ---
     constructor(address vat_, bytes32 ilk_) public {
-        vat = VatLike(vat_);
+        vat = VatLikeFlip(vat_);
         ilk = ilk_;
         wards[msg.sender] = 1;
     }

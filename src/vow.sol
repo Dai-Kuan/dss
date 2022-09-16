@@ -31,7 +31,7 @@ contract FlapLike {
     function live() external returns (uint);
 }
 
-contract VatLike {
+contract VatLikeVow {
     function dai (address) external view returns (uint);
     function sin (address) external view returns (uint);
     function heal(uint256) external;
@@ -49,7 +49,7 @@ contract Vow is LibNote {
     }
 
     // --- Data ---
-    VatLike public vat;
+    VatLikeVow public vat;
     FlapLike public flapper;
     FlopLike public flopper;
 
@@ -69,7 +69,7 @@ contract Vow is LibNote {
     // --- Init ---
     constructor(address vat_, address flapper_, address flopper_) public {
         wards[msg.sender] = 1;
-        vat     = VatLike(vat_);
+        vat     = VatLikeVow(vat_);
         flapper = FlapLike(flapper_);
         flopper = FlopLike(flopper_);
         vat.hope(flapper_);

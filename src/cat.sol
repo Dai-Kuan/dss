@@ -24,7 +24,7 @@ contract Kicker {
         public returns (uint);
 }
 
-contract VatLike {
+contract VatLikeCat {
     function ilks(bytes32) external view returns (
         uint256 Art,   // wad
         uint256 rate,  // ray
@@ -38,7 +38,7 @@ contract VatLike {
     function hope(address) external;
 }
 
-contract VowLike {
+contract VowLikeCat {
     function fess(uint) external;
 }
 
@@ -62,8 +62,8 @@ contract Cat is LibNote {
     mapping (bytes32 => Ilk) public ilks;
 
     uint256 public live;
-    VatLike public vat;
-    VowLike public vow;
+    VatLikeCat public vat;
+    VowLikeCat public vow;
 
     // --- Events ---
     event Bite(
@@ -79,7 +79,7 @@ contract Cat is LibNote {
     // --- Init ---
     constructor(address vat_) public {
         wards[msg.sender] = 1;
-        vat = VatLike(vat_);
+        vat = VatLikeCat(vat_);
         live = 1;
     }
 
@@ -98,7 +98,7 @@ contract Cat is LibNote {
 
     // --- Administration ---
     function file(bytes32 what, address data) external note auth {
-        if (what == "vow") vow = VowLike(data);
+        if (what == "vow") vow = VowLikeCat(data);
         else revert("Cat/file-unrecognized-param");
     }
     function file(bytes32 ilk, bytes32 what, uint data) external note auth {

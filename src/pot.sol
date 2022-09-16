@@ -38,7 +38,7 @@ import "./lib.sol";
 
 */
 
-contract VatLike {
+contract VatLikePot {
     function move(address,address,uint256) external;
     function suck(address,address,uint256) external;
 }
@@ -60,7 +60,7 @@ contract Pot is LibNote {
     uint256 public dsr;  // the Dai Savings Rate
     uint256 public chi;  // the Rate Accumulator
 
-    VatLike public vat;  // CDP engine
+    VatLikePot public vat;  // CDP engine
     address public vow;  // debt engine
     uint256 public rho;  // time of last drip
 
@@ -69,7 +69,7 @@ contract Pot is LibNote {
     // --- Init ---
     constructor(address vat_) public {
         wards[msg.sender] = 1;
-        vat = VatLike(vat_);
+        vat = VatLikePot(vat_);
         dsr = ONE;
         chi = ONE;
         rho = now;
